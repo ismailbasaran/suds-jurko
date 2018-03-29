@@ -150,7 +150,11 @@ class Core:
                 else:
                     setattr(content.data, key, [cval,])
             else:
-                setattr(content.data, key, cval)
+                try:
+                    setattr(content.data, key, cval)
+                except UnicodeEncodeError:
+                    # python 2.* setattr ASCII-only
+                    print "UnicodeEncodeError!!! key -> ", key
 
     def append_text(self, content):
         """
